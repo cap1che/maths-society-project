@@ -1,5 +1,5 @@
-let p = document.getElementById(pvalue);
-let q = document.getElementById(qvalue);
+let p = document.getElementById(pvalue).value;
+let q = document.getElementById(qvalue).value;
 let N = p*q;
 
 function phi(x, y, n) {
@@ -20,11 +20,11 @@ ph = phi(p, q, N)
 let list = []
 
 for (let i = 2; i < ph; i++) {
-    if (gcd(N, i) == 1 && gcd(ph, i) == 1) {
+    if (gcd(e, ph) == 1) {
         list.push(i)
     }
 }
-let e = list(0)
+let e = list[0]
 let k = 0
 
 while ((k*ph + 1)%e != 0) {
@@ -34,4 +34,8 @@ while ((k*ph + 1)%e != 0) {
 let ekey = [e, N]
 let dkey = [d, N]
 
-let h = document.getElementById(plaintext);
+let text = document.getElementById(plaintext).value;
+let h = text.charCodeAt(0)
+
+let b = (h**e)%N
+document.getElementById("cipher").textContent = c;
