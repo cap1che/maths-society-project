@@ -3,11 +3,13 @@
 <head>
     <title>encryption demo</title>
     <link rel="stylesheet" href="../css/websitestylesheet2.css">
+    <link rel="icon" href="../images/icon.png">
 
 </head>
 
 <body>
     <h1>Encryption Demo</h1>
+    <hr>
     <form class="inputform">
         <label for="pvalue">Enter first prime number</label><br>
         <input class="pbox" type="number" id="pvalue" placeholder="enter p value"><br><br>
@@ -18,15 +20,20 @@
             <label for="plaintext">Enter the plaintext you would like to encrypt</label><br>
             <input type="text" id="plaintext" placeholder="enter text"><br><br>
         </div>
-        <input type="button" value="submit" onclick="getInput()">
+        <input type="button" id="encryptbutton" value="encrypt" onclick="geteInput()">
+        <input type="button" id="decryptbutton" value="decrypt" onclick="getdInput()">
 
 
     </form>
 
     <p>ciphertext: <span id="cipher"></span></p>
+    <script src="../main.js"></script>
 
 <footer class="f">
     <a class="ls" href="about page.html">About</a>
+    <a class = "ls" href="website.html">Home</a>
+    <img class="homeimage" src="../images/house.png" alt="h">
+
 </footer>
 
 </body>

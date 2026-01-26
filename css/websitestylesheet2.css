@@ -9,19 +9,21 @@ h1 {
     font-family:'Lucida Console',"Courier New", "monospace";
 }
 .p1{
-    text-align: center;
-    margin-top:5%;
+    text-align: left;
+    margin-top:7%;
 }
 .l1 {
     display:inline-block;
-    background-color: rgb(178, 199, 223);
+    background-color: rgb(220, 220, 220);
     color: black;
     text-decoration:none;
-    position:absolute;
-    top:300px;
-    left:100px;
-    padding: 10px;
+    padding: 20px;
     font-size: 16px;
+    border-radius: 5px;
+    border-style: solid;
+    transition: transform 0.2s ease;
+    margin-top: 50px;
+    vertical-align: middle;
 }
 .l1:visited {
     color: black;
@@ -29,7 +31,7 @@ h1 {
 .l1:hover {
     color:rgb(128,0,128);
     text-decoration:underline;
-    font-size: 20px;
+    transform: scale(1.1);
 }
 .f {
     position:absolute;
@@ -51,11 +53,13 @@ h1 {
 .plaintext {
     margin-top:6%;
 }
-
 .ls {
     color: black;
     text-decoration:none;
-    font-size: 16px;
+    font-size: 18px;
+    display: inline-block;
+    transition: transform 0.2s ease;
+    padding: 5px;
 }
 .ls:visited {
     color: black;
@@ -63,12 +67,37 @@ h1 {
 .ls:hover {
     color: rgb(128,0,128);
     text-decoration: underline;
-    font-size: 20px;
+    transform: scale(1.1);
 }
 .pa1 {
-    top: 400px;
+    margin-top: 10%;
     text-align: center;
 }
 .cipher {
     font-size:16px;
+}
+#p2 {
+    display: inline-block;
+    text-align: left;
+    width: 400px;
+    height: 200px;
+    padding: 10px;
+    border-style: solid;
+    margin-right: 5%;
+}
+.homeimage {
+    width: 50px;
+    height: auto;
+    vertical-align: middle;
+}
+.icon {
+    position: absolute;
+    top: 0px;
+    left: 80%;
+    width: 100px;
+    height: auto;
+}
+hr {
+    position: relative;
+    top:5%;
 }
