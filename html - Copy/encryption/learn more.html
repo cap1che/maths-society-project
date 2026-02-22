@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RSA - Explanation</title>
+    <link rel="stylesheet" href="../../css/websitestylesheet2.css">
+    <link rel="icon" href="../../images/icon.png">
+</head>
+<body>
+    <h1>How does it work?</h1>
+    <hr>
+<div class="websitecontent">
+    <p class="p1">If you have not tried the algorithm, it is suggested to test different prime pairs
+    <br>and texts, and observe the encrypted and decrypted values.
+    </p>
+    <h2 id="learnheader">RSA Algorithm</h2>
+    <p class="pl" id="pl1">The RSA encryption algorithm is named after its founders, Rivest, Shamir,
+        and Adleman. It relies on the principle that multiplying 2 primes is computationally simple
+        but finding the prime factors of the product is difficult as no efficient classical algorithm is known.
+    </p>
+
+    <div class="pl2container">
+        <p class="pl" id="pl2">
+        To begin, choose 2 prime numbers, p and q, as prompted in the demo. Find their product, which will be
+        represented as N. To verify is a number is prime, please use the prime check form on the right hand side.
+        </p>
+        <img class="screenshot" src="../../images/screenshot1.png">
+        <p class="pl">For reasons later stated, it is recommended to choose p and q such that N is over 100 and less than
+        65,536. However, for the sake for demonstration, let <strong>p = 5 and q = 2, such that N = 10</strong>.</p>
+    </div>
+    <hr>
+    <div class="pl3container">
+        <div class="pl3left">
+            <p class="pl">
+                You must then use the function <strong>Φ(N)</strong>, defined as the number of coprimes between 1 and N.
+                The term <strong>coprime</strong> is a relationship between 2 numbers where they have <strong>no common factors</strong>
+                aside from 1. For small values of N, e.g 10, it may appear convenient to manually count each coprime.
+            </p>
+            <p class="pl">
+                From 10, non-coprimes can be removed sequentially. This includes
+            </p>
+            <ul>
+                <li> 2 </li>
+                <li> 4 </li>
+                <li> 5 </li>
+                <li> 6 </li>
+                <li> 8 </li>
+                <li> 10 </li>
+            </ul>
+            <p class="pl">
+                Whilst this process was convenient for a small N, the algorithm requires a sufficiently large N to not only encrypt and decrypt
+                the plaintext to begin with, but also for greater security.
+            </p>
+        </div>
+        <div id="plright">
+            <p class="pl">Therefore, a formulaic approach for counting coprimes with large N will be more appropriate, by either counting coprimes or removing non-coprimes.<br>
+            By observing the list of removed co-primes, they follow a clear pattern; They are either multiples of <strong>p, q, or both.</strong> For example</p>
+            
+            <ul>
+                <li> 2 </li>
+                <li> 4 </li>
+                <li> 6 </li>
+                <li> 8 </li>
+                <li> 10 </li>
+            </ul>
+
+            <p class="pl">are all multiples of <strong>p</strong>, whereas <strong>5</strong> and <strong>10</strong> are multiples of <strong>q.</strong>
+            <br>Therefore, to find <strong>Φ(N)</strong>, we can subtract the multiples of p, subtract the multiples of q, and add back multiples of both p and q to ensure that <strong>10</strong>, for example, is not counted twice.</p>
+            <p class="pl">And so: <strong>Φ(N) = N - (N/p + N/q - N/pq)</strong></p>
+        </div>
+    </div>
+    <hr>
+    <div class="p4container">
+        <h2>Encryption and Decryption Key Generation</h2>
+        <p class="pl" id="plb">The encryption and decryption keys must now be generated such that they are unique and cannot be realistically
+            discovered by attackers. <br> <br>
+            Firstly, <strong>Φ(N)</strong> must be calculated. Using the example, <strong>N = 10, Φ(N) = Φ(10) = 10 - (10/2 + 10/5 - 10/10) = 10 - (5 + 2 - 1) = 10 - 6 = 4</strong>. So <strong>Φ(10) = 4</strong>
+        </p>
+        <p class="pl">To calculate the encryption key, let <strong>e</strong> be equal to the value of the encryption key.
+            It must satisfy 2 conditions:
+        </p>
+        <ol>
+            <li><strong>1 < e < Φ(N)</strong></li>
+            <li><strong>e</strong> must be coprime with <strong>Φ(N)</strong></li>
+        </ol>
+        <p class="pl" id="plc">Using the first condition against <strong>N = 10</strong>, only 2 and 3 satisfy this condition.
+        And, when returning to the list of non-comprimes, 2 is removed, as it shares a common factor of 2 with <strong>Φ(N)</strong>.
+        Therefore, the only number satisfying both conditions is 3, as it has no common factors with <strong>Φ(N)</strong>, so <strong>e = 3</strong>.</p>
+    </div>
+    <hr>
+    <div class="pl3container">
+        <div class="pl3left">
+            <p class="pl">Let <strong>d</strong> = value of the decryption key. The decryption key must be generated by satisfying the rule <strong>de mod(Φ(N)) = 1</strong>,
+            or alternatively, <strong>de ≡ 1 mod(Φ(N))</strong>. Substituting <em>e = 3</em> and <em>Φ(N) = 4</em> means <strong>3d ≡ 1 mod(4)</strong>
+            </p>
+
+            <p class="pl" id="pld">As <strong>de ≡ 1 mod(Φ(N))</strong>, <strong>de = kΦ(N) + 1</strong>, and 
+            <strong>d = (kΦ(N)+1)/e</strong>, meaning <em>d = (4k + 1)/3</em>, and when testing small values of k,
+            k follows a pattern; <br>
+            <strong>k = 2, d = (8 + 1)/3 = 9/3 = 3</strong>, and when <strong>k = 5, d = (21/3) = 7</strong>. 
+            </p>
+
+            <p class="pl">It can be observed that <em>k</em> is in sequence</p>
+            <ul>
+                <li> 2 </li>
+                <li> 5 </li>
+                <li> 8... </li>
+            </ul>
+            <p class="pl">meaning that <strong>k = 3n - 1</strong>, so <br>d = (4(3n - 1) + 1)/3, and <br>d = (12n - 3)/3
+            meaning d = 4n - 1.
+            </p>
+        </div>
+
+        <div class="plright">
+            <p class="pl">Therefore <strong>d</strong> can take multiple values, including</p>
+            <ul>
+                <li> 3 </li>
+                <li> 7 </li>
+                <li> 11... </li>
+            </ul>
+            <p class="pl">Any value in sequence <em>4n - 1</em> could be chosen, although to demonstrate that the
+            RSA algorithm works for more than 1 decryption value, <strong>d = 7</strong> will be chosen.</p>
+        </div>    
+    </div>
+    <hr>
+    <div class = "pl3container">
+        <p class="pl">The keys have been calculated, with <br> <strong>e = 3</strong> and <strong>d = 7</strong>.
+        They can now be used for security purposes. In our simplified example, let the alphanumeric value of
+        <strong>h = 8</strong>. When the <em>encrypt</em> button is pressed on the <em>Algorithm Demo</em> page,
+        the following calculation is run:
+        </p>
+
+        <p class="pl"><strong>(h^e)mod(N)</strong> <br>
+        By substitution, <strong>8^3(mod(10)) = 512(mod(10)) = 2</strong>, meaning the value
+        of the ciphertext is 2, which can be represented with the variable <em>b</em>.
+        </p>
+        <figure>
+        <img class="screenshot" id="wide" src="../../images/encryption example.png">
+        <figcaption class="caption"><em>note: the algorithm page uses UTF-8 character values, so requires a minimum value <br> of N greater than the UTF values of characters, <br> and less than 65,536.</em></figcaption>
+        </figure>
+    </div>
+    <hr>
+    <div class="pl3container">
+        <p class="pl">When the <em>decrypt</em> button is <br> pressed on the <em>Algorithm Demo</em>, <br>
+        the following calculation is run using the value of b:
+        </p>
+        <p class="pl"><strong>(b^d)mod(N)</strong>
+        So <strong>2^7(mod(10)) = 128(mod(10)) = 8</strong>, meaning the decrypted value is 8, which exactly matches <br>
+        the initial plaintext when converted back to alphanumeric characters, returning <em>"h"</em>.
+        </p>
+        <figure>
+        <img class="screenshot" id="wide" src="../../images/decryption example.png">
+        <figcaption class="caption"><em>h is returned. This works on arbitrarily long strings in this simultation<br> (although real RSA is primarily used to encrypt small pieces of data), so <br> your encrypted message can be as long as you like.</nr></em></figcaption>
+        </figure>
+    </div>
+    <hr>
+    <h3>Citations</h3>
+    <ol>
+        <li>Rivest, R. L., Shamir, A., & Adleman, L. (1978). A method for obtaining digital signatures and public-key cryptosystems. Communications of the ACM, 21(2), 120-126.</li>
+        <li>Fagin, B. (2018). Composite Numbers That Give Valid RSA Key Pairs For Any Coprime p. Information, 9(9), 216.</li>
+        <li>Jonsson, J., & Kaliski, B. (2003). Public-key cryptography standards (PKCS)# 1: RSA cryptography specifications version 2.1 (No. rfc3447).</li>
+    </ol>
+    <hr>
+    <h2>Notes</h2>
+    <p>We hope you enjoyed this explanation of the RSA encryption algorithm. Whilst the explanation is mathematically valid, there
+        are certain points which should be addressed: <br><br>
+        The real RSA algorithm uses extremely large values of N to ensure absolute security, whereas this website may be limited in regards to the maximum value of N
+        due to website performance concerns. Additionally, this website uses other algorithms, such as modular exponentiation which were omitted in this explanation. <br><br>
+        It is also recommended to test the algorithm to see how different messages are encrypted, and also to observe what happens when non-primes are entered.
+    </p>
+</div>
+
+<footer class="f">
+    <a class = "ls" href="../website.html">Home</a>
+    <img class="image" id="homeimage" src="../../images/house.png" alt="h">
+    <a class="ls" href="../about page.html">About</a>
+</footer>
+</body>
+</html>
