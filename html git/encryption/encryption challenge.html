@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RSA Challenge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/websitestylesheet2.css">
+    <link rel="icon" href="../../images/icon.png">
+
+</head>
+<body>
+<div class="websitecontent">
+<h1>RSA Challenge</h1>
+
+<p class="p1" id="introtext">Using the principles of primes, coprimes, and factors described in the <i>learn more</i> section,
+you can now try this minigame.
+
+When <i>Start</i> is pressed, ciphertext alongside the values of <strong>N</strong> and <strong>e</strong> are displayed. You can use
+any strategy to find the private decryption key, <strong>d</strong>, and decrypt the ciphertext. Get as many consecutive answers correct as possible and try to
+overcome your high score.</p>
+<hr>
+<div id="hintandcipher">
+<div class="ciphersection">
+    <form class="inputform">
+        <input class="button" type="button" id="startbutton" value="start" onclick="startChallenge()">
+
+        <div class="rsavalues">
+            <p>N = <span id="nvalue">-</span></p>
+            <p>e = <span id="evalue">-</span></p>
+            <p>ciphertext = <span id="ptext">-</span></p>
+        </div>
+        <div class="answerbox">
+            <label for="dinput">Enter d</label>
+            <input class="box" id="dinput" type="text">
+            <button class="button" type="button" id="submitd" onclick="checkChallenge()">Submit</button>
+            <p class="out"><span id="output"></span></p>
+        </div>
+    </form>
+</div>
+<div id="hintandlink">
+    <p class="hint">(Hint: Use (p-1)(q-1) to find Φ(N) quickly.)</p>
+    <a class="l1" href="../encryption/learn more.html">Learn More
+    <span class="tooltiptext">Knowledge is power</span>
+    <img src="../../images/book.png" class="image">
+    </a>
+</div>
+</div>
+<p id="score">Score: <span id="scorevalue">0</span></p>
+<p id="highscore">High Score: <span id="highscorevalue">0</span></p>
+</div>
+<footer class="f">
+    <a class="ls" href="../website.html">Home</a>
+    <img class="image" id="homeimage" src="../../images/house.png" alt="h">
+    <a class="ls" href="learn more.html">Learn</a>
+    <img class="image" id="learnimage" src="../../images/book.png">
+    <a class="ls" href="../about page.html">About</a>
+</footer>
+<script src="../../main.js"></script>
+
+</body>
+
+</html>

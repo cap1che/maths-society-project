@@ -2,26 +2,58 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: white;
-    font-family:'Lucida Console',"Courier New", "monospace";
+    font-family: "DotGothic16", "Consolas", "monospace";
     margin: 0;
     padding-bottom: 150px;
     position: relative;
 }
+
 h1 {
-    color: black;
     text-align: center;
-    font-family:'Lucida Console',"Courier New", "monospace";
-    margin-bottom: 10%;
+    margin-bottom: 5%;
 }
 #header1{
     margin-bottom: 0%;
+    font-size: 35px;
 }
 
 #header2 {
     text-align: center;
-    margin-bottom: 8%;
+    margin-bottom: 5%;
+}
+
+.action {
+    margin-left: 5%;
+    background-color: rgb(44,44,44);
+    color: white;
+    font-size: 20px;
+    font-family: "DotGothic16", "Consolas", "monospace";
+    text-decoration: none;
+    padding: 12px;
+    font-weight: bold;
+    position: absolute;
+    top: 70px;
+}
+
+.action:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px black;
+    transform: scale(1.1);
+}
+
+.subtitle {
+    font-size: 25px;
+}
+
+#welcome {
+    text-align: center;
+    margin: 5%;
 }
 
 .websitecontent {
@@ -45,15 +77,38 @@ h1 {
     transition: transform 0.2s ease;
     vertical-align: middle;
     width: 200px;
+    height: 100px;
+    margin: 2%;
+    margin-bottom: 3%;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px black;
 }
 .l1:visited {
     color: black;
 }
 .l1:hover {
-    color:rgb(128,0,128);
-    text-decoration:underline;
+    text-decoration:none;
     transform: scale(1.1);
 }
+
+.l1:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: auto;
+    font-size: 10px;
+    background-color: rgb(44,44,44);
+    color: #ffffff;
+    text-align: center;
+    padding: 3px;
+    position: absolute;
+    z-index: 1;
+    top: 100%; 
+}
+
 .f {
     width: 100%;
     padding: 40px 30px;
@@ -66,8 +121,42 @@ h1 {
 
 .inputform {
     margin-top:2%;
+    margin-bottom: 2%;
     display: inline-block;
     margin-left: 1%;
+}
+
+.ciphersection {
+    display: inline-block;
+    background-color: rgb(44, 44, 44);
+    color: white;
+    padding: 40px;
+    padding-right: 60px;
+    border: 4px solid black;
+    width: 700px;
+    height: 500px;
+}
+
+.rsavalues {
+    border: 1px solid black;
+    margin-top: 2%;
+    padding: 12px;
+    padding-right: 80px;
+    
+}
+
+#startbutton {
+    margin-bottom: 12%;
+    font-size: 20px;
+}
+
+.answerbox {
+    margin: 5%;
+    margin-left: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: nowrap;
 }
 
 #cipherdisplay {
@@ -82,6 +171,13 @@ h1 {
     padding-left: 2%;
     padding-right: 2%;
     margin-bottom: 5%;
+    background-color: rgb(44,44,44);
+    color: white;
+}
+
+#caesarattempts {
+    background-color: white;
+    color: black;
 }
 
 .barcontainer {
@@ -123,9 +219,8 @@ h1 {
     color: black;
 }
 .ls:hover {
-    color: rgb(128,0,128);
-    text-decoration: underline;
-    transform: scale(1.1);
+    text-decoration: none;
+    transform: scale(1.2);
 }
 .pa1 {
     margin-top: 4rem;
@@ -156,6 +251,23 @@ h1 {
     width: 100px;
     height: auto;
 }
+.button {
+    font-family: "DotGothic16", "Consolas", "monospace";
+    padding: 5px;
+}
+.box {
+    font-family: "DotGothic16", "Consolas", "monospace";
+    padding: 5px;
+    background-color: rgb(44,44,44);
+    border: 1px solid rgb(104, 101, 101);
+    color: white;
+}
+
+.tbox {
+    background-color: white;
+    color: black;
+
+}
 hr {
     position: relative;
     top:5%;
@@ -169,10 +281,22 @@ hr {
     border: 1px solid black;
     padding: 2%;
 }
+#primeformat {
+    display: inline-block;
+}
+.additionallinks {
+    display: inline-block;
+    margin-left: 5%;
+}
+#introtext {
+    text-align: justify;
+    text-justify: inter-word;
+    width: 700px;
+}
 .pl {
     display: block;
     text-align: left;
-    width: 400px;
+    width: 600px;
     height: auto;
     padding: 10px;
     margin-top: 5px;
@@ -184,7 +308,6 @@ hr {
     align-content: center;
     position: relative;
 }
-
 .screenshot {
     display: inline-block;
     width: 200px;
@@ -204,8 +327,8 @@ hr {
 }
 .p2row {
     display: flex;
-    align-items: flex-start;
-    gap:30px;
+    flex-direction: column;
+    gap:20px;
     flex-wrap: wrap;
 }
 .p2buttons {
@@ -213,7 +336,8 @@ hr {
     flex-direction: row;
     gap:30px;
     align-self: flex-start;
-    margin-top: 10%;
+    margin: 3%;
+    margin-left: 10%;
 }
 .pl3container {
     display: flex;
@@ -224,6 +348,21 @@ hr {
     display: flex;
     flex-direction: column;
     border-right: 1px solid black;
+}
+.hint {
+    margin-top: 5%;
+}
+
+#hintandcipher {
+    display: flex;
+    gap: 30px;
+
+}
+#hintandlink {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+    margin-left: 5%;
 }
 #plright {
     width: 400px;
@@ -248,7 +387,7 @@ hr {
 #mathfact {
     position: absolute;
     display: block;
-    width:200px;
+    width:220px;
     height:auto;
     font-style: italic;
     text-align: center;
@@ -273,4 +412,15 @@ hr {
     text-align: justify;
     padding-left:5%;
     padding-right:5%;
+}
+
+#quote {
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 25%;
+}
+
+.out {
+    width: 200px;
+    height: 100px;
 }

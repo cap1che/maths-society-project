@@ -2,11 +2,24 @@
 <html>
 <head>
     <title>RSA - Explanation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/websitestylesheet2.css">
     <link rel="icon" href="../../images/icon.png">
 </head>
+
+<style>
+    body {
+        font-family: "Consolas", "monospace";
+    }
+    h1, .f {
+        font-family: "DotGothic16", "Consolas";
+    }
+</style>
+
 <body>
-    <h1>How does it work?</h1>
+    <h1>RSA Explanation</h1>
     <hr>
 <div class="websitecontent">
     <p class="p1">If you have not tried the algorithm, it is suggested to test different prime pairs
@@ -20,18 +33,16 @@
 
     <div class="pl2container">
         <p class="pl" id="pl2">
-        To begin, choose 2 prime numbers, p and q, as prompted in the demo. Find their product, which will be
-        represented as N. To verify is a number is prime, please use the prime check form on the right hand side.
+        Let <i>p</i> and <i>q</i> be distinct primes. Let <i>N</i> = pq. To verify is a number is prime, please use the prime check form on the right hand side of the <i>Algorithm Demo</i> page.
         </p>
         <img class="screenshot" src="../../images/screenshot1.png">
-        <p class="pl">For reasons later stated, it is recommended to choose p and q such that N is over 100 and less than
-        65,536. However, for the sake for demonstration, let <strong>p = 5 and q = 2, such that N = 10</strong>.</p>
+        <p class="pl">It is recommended to choose p and q such that N is over 122 to ensure two-way encryption of each English letter using the Unicode character set. However, for the sake for demonstration, let <strong>p = 5 and q = 2, such that N = 10</strong>.</p>
     </div>
     <hr>
     <div class="pl3container">
         <div class="pl3left">
             <p class="pl">
-                You must then use the function <strong>Φ(N)</strong>, defined as the number of coprimes between 1 and N.
+                The function <strong>Φ(N)</strong> must then be used, defined as the number of coprimes between 1 and N.
                 The term <strong>coprime</strong> is a relationship between 2 numbers where they have <strong>no common factors</strong>
                 aside from 1. For small values of N, e.g 10, it may appear convenient to manually count each coprime.
             </p>
@@ -47,8 +58,7 @@
                 <li> 10 </li>
             </ul>
             <p class="pl">
-                Whilst this process was convenient for a small N, the algorithm requires a sufficiently large N to not only encrypt and decrypt
-                the plaintext to begin with, but also for greater security.
+                Although this process is short for small N, the algorithm requires a sufficiently large N for greater security.
             </p>
         </div>
         <div id="plright">
@@ -65,11 +75,17 @@
 
             <p class="pl">are all multiples of <strong>p</strong>, whereas <strong>5</strong> and <strong>10</strong> are multiples of <strong>q.</strong>
             <br>Therefore, to find <strong>Φ(N)</strong>, we can subtract the multiples of p, subtract the multiples of q, and add back multiples of both p and q to ensure that <strong>10</strong>, for example, is not counted twice.</p>
-            <p class="pl">And so: <strong>Φ(N) = N - (N/p + N/q - N/pq)</strong></p>
+            <p class="pl">And so: <strong>Φ(N) = N - (N/p + N/q - N/pq)</strong>. Alternatively, if we consider non-coprimes of N as sharing a factor with either
+            p or q, the numbers <i>p, 2p, ... (q-1)p, qp</i> and <i>q, 2q, ... (p-1)q, pq</i> are not corpime with N.</p>
         </div>
+        <hr>
     </div>
     <hr>
     <div class="p4container">
+        <p class="pl">Therefore there are <strong>(p + q - 1)</strong> non-coprimes, as, similarly to the alternative method, pq is counted twice.
+        The number of coprimes is thus N - (p + q - 1) = pq - p - q + 1, which factors into <strong>(p - 1)(q - 1)</strong>, providing a simpler expression for <strong>Φ(N)</strong>.
+        <br><br> This expression is known as <i>Euler's Totient function of N</i>, when N is a product of 2 distinct primes.</p>
+        <hr>
         <h2>Encryption and Decryption Key Generation</h2>
         <p class="pl" id="plb">The encryption and decryption keys must now be generated such that they are unique and cannot be realistically
             discovered by attackers. <br> <br>
@@ -135,7 +151,6 @@
         </p>
         <figure>
         <img class="screenshot" id="wide" src="../../images/encryption example.png">
-        <figcaption class="caption"><em>note: the algorithm page uses UTF-8 character values, so requires a minimum value <br> of N greater than the UTF values of characters, <br> and less than 65,536.</em></figcaption>
         </figure>
     </div>
     <hr>
@@ -149,7 +164,7 @@
         </p>
         <figure>
         <img class="screenshot" id="wide" src="../../images/decryption example.png">
-        <figcaption class="caption"><em>h is returned. This works on arbitrarily long strings in this simultation<br> (although real RSA is primarily used to encrypt small pieces of data), so <br> your encrypted message can be as long as you like.</nr></em></figcaption>
+        <figcaption class="caption"><em>h is returned. This works on arbitrarily long strings in this simultation<br> (although real RSA is primarily used to encrypt small pieces of data), so <br> the encrypted message can be arbitrarily large.</nr></em></figcaption>
         </figure>
     </div>
     <hr>
@@ -158,6 +173,8 @@
         <li>Rivest, R. L., Shamir, A., & Adleman, L. (1978). A method for obtaining digital signatures and public-key cryptosystems. Communications of the ACM, 21(2), 120-126.</li>
         <li>Fagin, B. (2018). Composite Numbers That Give Valid RSA Key Pairs For Any Coprime p. Information, 9(9), 216.</li>
         <li>Jonsson, J., & Kaliski, B. (2003). Public-key cryptography standards (PKCS)# 1: RSA cryptography specifications version 2.1 (No. rfc3447).</li>
+        <li>Rosendo, F. (1998) RSA: Public-Key Algorithms, i.web Labs.</li>
+        <li>Mollin, R. A. (2002). RSA and public-key cryptography. Chapman and Hall/CRC.</li>
     </ol>
     <hr>
     <h2>Notes</h2>

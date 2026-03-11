@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RSA Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/websitestylesheet2.css">
+    <link rel="icon" href="../../images/icon.png">
+
+</head>
+<body>
+    <div class="websitecontent">
+        <h1>Encryption Demo</h1>
+        <hr>
+        <h2>RSA Algorithm</h2>
+        <div class="ciphersection">
+        <form class="inputform">
+            <label for="pvalue">Enter first prime number</label><br>
+            <input class="pbox box" type="number" id="pvalue" placeholder="enter p value"><br><br>
+            <label for="qvalue">Enter second prime number</label><br>
+            <input class="qbox box" class="box" type="number" id="qvalue" placeholder="enter q value"><br><br>
+
+            <div class="usertext">
+                <label for="plaintext">Enter the plaintext you would like to encrypt</label><br>
+                <input class="box" type="text" id="plaintext" placeholder="enter text"><br><br>
+            </div>
+            <input type="button" class="button" id="encryptbutton" value="encrypt" onclick="geteInput();attemptsInput();spamattemptsInput(); animateBar('bar1', Number(document.getElementById('attempts').textContent)); animateBar('bar2', Number(document.getElementById('spamattempts').textContent))">
+            <input type="button" class="button" id="decryptbutton" value="decrypt" onclick="getdInput()">
+
+        </form>
+        <p class="cipherdisplay">ciphertext: <span id="cipher"></span></p>
+        </div>
+        <form class="primecheckform">
+            <label for="testvalue">Check if your number is prime</label><br>
+            <div id="primeformat">
+            <input class="tbox box" type="number" id="tvalue" placeholder="enter any number"><br>
+            
+            <input type="button" class="button" id="testbutton" value="enter" onclick="gettInput()">
+            </div>
+        </form>
+        <div class="attemptsdisplay">
+            <p>It would take <br></p>
+            <div class="barcontainer">
+                <div class="bar" id="bar1"></div>
+                <span class="value" id="attempts"></span> <br>
+            </div>
+            <p>attempts to guess your key using Fermat's factorisation method</p>
+            <p>It would take <br></p>
+            <div class="barcontainer">
+                <div class="bar" id="bar2"></div>
+                <span class="value" id="spamattempts"></span> <br>
+            </div>
+            <p>attempts to guess your key using brute force of prime factors</p>
+        </div>
+        <script src="../../main.js"></script>
+        <div class="additionallinks">
+        <a class="l1" href="../encryption/learn more.html">Learn More
+            <span class="tooltiptext">Knowledge is power</span>
+            <img src="../../images/book.png" class="image">
+        </a>
+        <h3>Finished reading?</h3>
+         <a class="l1" href="../encryption/encryption challenge.html">RSA Challenge
+            <span class="tooltiptext">Decrypt the text</span>
+            <img src="../../images/computer.png" class="image">
+        </a>
+        </div>
+        <hr>
+        <h2>Caesar Cipher</h2>
+        <p>Compare the Caesar Cipher against the RSA Algorithm</p>
+        <div class="ciphersection">
+        <form class="inputform">
+            <label for="cvalue">Enter number of characters to shift by</label><br>
+            <input class="cbox box" type="number" id="cvalue" placeholder="enter number"><br>
+
+            <div class="usertext">
+                <label for="plaintext">Enter the plaintext you would like to encrypt</label><br>
+                <input class="box" type="text" id="plaintext2" placeholder="enter text"><br><br>
+            </div>
+            <input type="button" class="button" id="cipherbutton" value="encrypt" onclick="getcInput()">
+            <input type="button" class="button" id="cdbutton" value="decrypt" onclick="getcdInput()">
+        </form>
+        <p class="cipherdisplay">ciphertext: <span id="ccipher"></span></p>
+        </div>
+
+        <p class="attemptsdisplay" id="caesarattempts">It would take an average of <strong>12.5</strong> attempts to guess your key</p>
+        <script src="../../main.js"></script>
+    </div>
+<footer class="f">
+    <a class="ls" href="../website.html">Home</a>
+    <img class="image" id="homeimage" src="../../images/house.png" alt="h">
+    <a class="ls" href="learn more.html">Learn</a>
+    <img class="image" id="learnimage" src="../../images/book.png">
+    <a class="ls" href="../about page.html">About</a>
+
+</footer>
+
+</body>
+</html>

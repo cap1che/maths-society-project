@@ -5,6 +5,24 @@ let N;
 let e;
 let d;
 let t;
+let challenged = 0;
+let challengescore = 0
+let highscore = 0
+let level = 1
+let Nchallenge;
+let currentEncrypted = [];
+let currentWord = "";
+let challengesolved = false;
+let challengestarted = false;
+
+function gcd(a, b) {
+    while (b != 0) {
+        let temp = b
+        b = a % b
+        a = temp
+    }
+    return a
+}
 
 function modarithmetic(a, b, m) {
 
@@ -36,15 +54,6 @@ function geteInput() {
 
     function phi(x, y, n) {
         return n - (Math.floor(n/x) + Math.floor(n/y) - Math.floor(n/(x*y)))
-    }
-
-    function gcd(a, b) {
-        while (b != 0) {
-            let temp = b
-            b = a % b
-            a = temp
-        }
-        return a
     }
 
     let ph = phi(p, q, N)
@@ -194,19 +203,47 @@ function gettInput() {
     }
     let t = Number(inp)
         if (isPrime(t) == false || t == 1) {
-            alert("number is not prime")
+            alert("number is not prime, try: \n" + suggestPrime(t))
         }
         else{
             alert("number is prime")
         }
+}
 
+function suggestPrime(n) {
+    let limit = 3
+    let current = 0
+    let suggestions = []
+    let temp = n
+    while (current < limit) {
+        temp -= 1
+        if (isPrime(temp) && temp > 0) {
+            suggestions.push(temp)
+            current += 1
+        }
+        if (temp < 0) {
+            break
+        }
     }
+    temp = n
+    current = 0
+    while (current < limit) {
+        temp += 1
+        if (isPrime(temp) && temp > 0) {
+            suggestions.push(temp)
+            current += 1
+        }
+        if (temp < 0) {
+            break
+        }
+    }
+    return suggestions.join(", ")
+}
 
 let mathfact = [
     "4 is the only number with the same number of letters as its value",
-    "A Kerr-Newman black hole has an energy efficiency of 42%, 60x more efficient than nuclear fusion",
-    "Imaginary numbers are somewhat real, being necessary to solve the Schrodinger equation, meaning they are used to describe the fundamental matter within the universe.",
-    "Statistically, your friends are likely more popular than you are.",
+    "A Kerr-Newman black hole has a theoretical maximum energy efficiency of 42%, 60x more efficient than nuclear fusion",
+    "Imaginary numbers are necessary to solve the Schrodinger equation, meaning they are used to describe the fundamental matter within the universe.",
     "1 mile = 1.609 km, which is approximately the golden ratio (1.618), so miles can be converted by iteratively moving through the Fibonacci sequence.",
     "yummy",
     "the product of 2 numbers is the product of their HCF and LCM",
@@ -214,7 +251,11 @@ let mathfact = [
     "every odd number has an 'e' in its word",
     "folding an A4 sheet of paper 103 times will cause its thickness to exceed the diameter of the observable universe",
     "picking a 3 digit number with distinct first and last digits, then reversing, then subtracting smaller from larger number, then adding reverse will always yield 1089",
-    "for a positive integer n, there is always a prime number between n and 2n"
+    "for a positive integer n, there is always a prime number between n and 2n",
+    "-40 Celsius is equal to -40 Fahrenheit",
+    "'eleven plus two' is an anagram of 'twelve plus one'",
+    "6 is the first perfect number, equal to the sum of its divisors",
+    "by induction, contradiction, and exhaustion, the cake is not true, do not listen to it"
 ]
 let randomfactnumber = Math.floor(Math.random() * mathfact.length)
 let randomfact = mathfact[randomfactnumber]
@@ -222,7 +263,10 @@ if (Math.random() < 0.01) {
     randomfact = "you found the secret fact"
 }
 
-document.getElementById("mathfact").textContent = randomfact
+let factelem = document.getElementById("mathfact")
+if (factelem) {
+    factelem.textContent = randomfact
+}
 
 function getcInput() {
     function cencrypt(str, shift) {
@@ -296,4 +340,134 @@ function getcdInput() {
             }
         }
     displaytext();
+}
+
+wordlist = ["apple", "chair", "hello", "book", "dragon", "cat", "bear", "wallet"]
+
+function startChallenge() {
+    challengestarted = true;
+    challengesolved = false;
+    let minlim = Math.floor((level)*2 + 10)
+    let maxlim = Math.floor((level)*3 + 20)
+    let p = randomPrime(minlim, maxlim)
+    let q = randomPrime(minlim, maxlim)
+
+    while (p == q) {
+        q = randomPrime(minlim, maxlim)
+    }
+
+        Nchallenge = p * q;
+    let phi = (p - 1) * (q - 1);
+
+    let e = 2;
+    while (gcd(e, phi) != 1) {
+        e += 1;
+    }
+
+    let k = 0;
+    let d = 0;
+    while ((k * phi + 1) % e != 0) {
+        k += 1;
+    }
+    d = (k * phi + 1) / e;
+
+    challenged = d;
+    currentWord = wordlist[Math.floor(Math.random() * wordlist.length)];
+    currentEncrypted = encryptWord(currentWord, e, Nchallenge);
+
+
+    document.getElementById("nvalue").textContent = Nchallenge;
+    document.getElementById("evalue").textContent = e;
+    document.getElementById("dinput").value = "";
+    document.getElementById("ptext").textContent = currentEncrypted.join(" ");
+}
+
+function checkChallenge() {
+
+    if (challengestarted == false) {
+        return;
+    }
+    if (challengesolved == true) {
+        return;
+    }
+
+    let userD = Number(document.getElementById("dinput").value);
+
+    if (userD === challenged) {
+        if (challengesolved == false) {
+            challengescore += 1;
+            highscore += 1
+        }
+        challengesolved = true;
+        document.getElementById("scorevalue").textContent = challengescore;
+        document.getElementById("highscorevalue").textContent = highscore;
+        let decrypted = decryptWord(currentEncrypted, userD, Nchallenge);
+        document.getElementById("ptext").textContent = decrypted;
+        writetext()
+
+    } else {
+        alert("Incorrect! The correct d was " + challenged);
+        challengescore = 0;
+        document.getElementById("scorevalue").textContent = 0;
+        startChallenge()
+    }
+}
+
+function randomPrime(min, max) {
+    let n = Math.floor(Math.random() * (max - min + 1)) + min
+
+    if (isPrime(n)) {
+        return n
+    }
+    let up = n + 1
+    let down = n - 1
+    while (true) {
+        if (up <= max && isPrime(up)) {
+            return up
+        } 
+        if (down >= min && isPrime(down)) {
+            return down;
+        } 
+        up += 1;
+        down -= 1;
+        if (up > max || down < min) {
+            break;
+    }
+    }
+    return null;
+}
+
+function encryptWord(word, e, N) {
+    let result = [];
+    for (let char of word) {
+        let code = BigInt(char.codePointAt(0));
+        result.push(modarithmetic(code, e, N));
+    }
+    return result;
+}
+let correcttext;
+
+function decryptWord(encryptedArray, d, N) {
+    let result = "";
+    for (let num of encryptedArray) {
+        let code = modarithmetic(BigInt(num), d, N);
+        result += String.fromCodePoint(Number(code));
+    }
+    correcttext = "correct. The decrypted word is "
+    correcttext += result
+    correcttext = correcttext.split("")
+    return result;
+}
+
+function writetext() {
+    let outelem = document.getElementById("output")
+    let i = 0;
+    function display() {
+        if (i < correcttext.length) {
+            outelem.textContent += (correcttext[i])
+            i ++
+            setTimeout(display, 50);
+            }
+    }
+    display();
 }
